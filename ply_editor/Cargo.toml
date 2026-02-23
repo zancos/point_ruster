@@ -1,0 +1,58 @@
+[package]
+name = "ply_editor"
+version = "0.1.0"
+edition = "2021"
+authors = ["ply_editor team"]
+description = "PLY point cloud viewer/editor with tool-based geometry creation"
+
+[dependencies]
+# Window and input
+winit = "0.29"
+
+# Rendering
+wgpu = "0.19"
+
+# UI
+egui = "0.28"
+egui-winit = "0.28"
+egui-wgpu = "0.28"
+
+# Math
+glam = "0.26"
+
+# PLY IO
+ply-rs = "0.1"
+
+# Spatial (KD-tree)
+kiddo = "0.7"
+
+# Triangulation
+delaunator = "0.8"
+
+# Async/blocking
+pollster = "0.4"
+
+# Error handling
+thiserror = "1.0"
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
+
+# Utilities
+bytemuck = "1.16"
+rayon = "1.10"
+
+# Threading
+parking_lot = "0.12"
+
+# For tests
+tempfile = "3.8"
+
+[dev-dependencies]
+tempfile = "3.8"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

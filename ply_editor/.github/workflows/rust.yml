@@ -1,0 +1,75 @@
+name: Rust CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "./ply_editor -> target"
+
+      - name: Check formatting
+        run: |
+          cd ply_editor
+          cargo fmt --all -- --check
+
+      - name: Run clippy
+        run: |
+          cd ply_editor
+          cargo clippy -- -D warnings
+
+      - name: Build
+        run: |
+          cd ply_editor
+          cargo build --verbose
+
+      - name: Run tests
+        run: |
+          cd ply_editor
+          cargo test --verbose
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Build
+        run: |
+          cd ply_editor
+          cargo build --verbose
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Build
+        run: |
+          cd ply_editor
+          cargo build --verbose
