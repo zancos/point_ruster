@@ -99,9 +99,10 @@ impl Tool for ToolSelect {
                         ctx.mouse_position.0,
                         ctx.mouse_position.1,
                     ) {
+                        let is_already_selected = app_state.scene.selection.is_point_selected(result.point_index);
                         let mut selection = app_state.scene.selection.selected_points();
                         
-                        if ctx.app_state.scene.selection.is_point_selected(result.point_index) {
+                        if is_already_selected {
                             // Already selected, maybe deselect
                             if !ctx.mouse_button.map(|b| b == MouseButton::Left).unwrap_or(false) {
                                 // Shift not held, replace selection

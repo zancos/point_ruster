@@ -45,18 +45,22 @@ impl ScenePanel {
             if app_state.scene.geometries.is_empty() {
                 ui.label("  (none)");
             } else {
-                for obj in &app_state.scene.geometries {
+                // Collect geometry info first to avoid borrow issues
+                let geometry_info: Vec<_> = app_state.scene.geometries.iter()
+                    .map(|obj| (obj.id, obj.visible, obj.name.clone(), format!("{}", obj.geometry)))
+                    .collect();
+                
+                for (id, visible, name, type_name) in geometry_info {
                     ui.horizontal(|ui| {
                         // Visibility toggle
-                        let vis_text = if obj.visible { "👁" } else { "○" };
+                        let vis_text = if visible { "👁" } else { "○" };
                         if ui.button(vis_text).clicked() {
-                            let cmd = CmdToggleVisibility::new(obj.id, obj.visible);
+                            let cmd = CmdToggleVisibility::new(id, visible);
                             app_state.history.execute(Box::new(cmd), &mut app_state.scene);
                         }
                         
                         // Geometry name and type
-                        let type_name = format!("{}", obj.geometry);
-                        ui.label(format!("{} ({})", obj.name, type_name));
+                        ui.label(format!("{} ({})", name, type_name));
                     });
                 }
             }
