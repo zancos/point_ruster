@@ -32,17 +32,17 @@ impl InputState {
 
     /// Check if Ctrl is held
     pub fn is_ctrl(&self) -> bool {
-        self.modifiers.control_key()
+        self.modifiers.ctrl()
     }
 
     /// Check if Shift is held
     pub fn is_shift(&self) -> bool {
-        self.modifiers.shift_key()
+        self.modifiers.shift()
     }
 
     /// Check if Alt is held
     pub fn is_alt(&self) -> bool {
-        self.modifiers.alt_key()
+        self.modifiers.alt()
     }
 }
 

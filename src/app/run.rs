@@ -50,7 +50,7 @@ pub fn run(mut app_state: AppState) {
             } => {
                 renderer.resize(size.width, size.height);
             }
-            winit::event::Event::AboutToWait => {
+            winit::event::Event::MainEventsCleared => {
                 // Update
                 // (Add update logic here)
                 

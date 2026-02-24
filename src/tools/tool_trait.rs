@@ -19,7 +19,9 @@ pub trait Tool {
     fn name(&self) -> &str;
 
     /// Render UI for the tool in the inspector panel
-    fn ui(&mut self, ui: &mut Ui, _app_state: &mut AppState) {
+    fn ui(&mut self, ui: &mut Ui, app_state: &mut AppState) {
+        // Default implementation ignores app_state, but subclasses can use it
+        let _ = app_state;
         ui.label(self.name());
     }
 

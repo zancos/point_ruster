@@ -34,11 +34,8 @@ impl Inspector {
             ui.label(egui::RichText::new(tool_name).heading());
             ui.separator();
             
-            // Tool-specific UI - use a scope to drop the tool borrow before accessing app_state again
-            {
-                let tool = app_state.current_tool();
-                tool.ui(ui, app_state);
-            }
+            // Tool-specific UI
+            app_state.current_tool().ui(ui, app_state);
             
             ui.separator();
             
