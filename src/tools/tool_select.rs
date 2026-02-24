@@ -86,7 +86,7 @@ impl Tool for ToolSelect {
             return;
         }
 
-        let app_state = &ctx.app_state;
+        let app_state = &mut ctx.app_state;
 
         if pressed {
             // Mouse pressed - start selection

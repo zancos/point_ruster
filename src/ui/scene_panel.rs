@@ -51,7 +51,7 @@ impl ScenePanel {
                         let vis_text = if obj.visible { "👁" } else { "○" };
                         if ui.button(vis_text).clicked() {
                             let cmd = CmdToggleVisibility::new(obj.id, obj.visible);
-                            app_state.history.execute(Box::new(cmd), &mut *app_state.scene);
+                            app_state.history.execute(Box::new(cmd), &mut app_state.scene);
                         }
                         
                         // Geometry name and type

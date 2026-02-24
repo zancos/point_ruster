@@ -13,7 +13,7 @@ pub struct Renderer<'a> {
     config: SurfaceConfiguration,
 }
 
-impl Renderer {
+impl<'_> Renderer<'_> {
     /// Create a new renderer
     pub fn new(window: &Window) -> Result<Self, Box<dyn Error>> {
         let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {

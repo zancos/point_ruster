@@ -27,12 +27,15 @@ impl Inspector {
             ui.separator();
             
             // Show current tool UI
-            let tool = app_state.current_tool();
-            ui.label(egui::RichText::new(tool.name()).heading());
+            let tool_name = {
+                let tool = app_state.current_tool();
+                tool.name().to_string()
+            };
+            ui.label(egui::RichText::new(tool_name).heading());
             ui.separator();
             
             // Tool-specific UI
-            tool.ui(ui, &mut *app_state);
+            app_state.current_tool().ui(ui, app_state);
             
             ui.separator();
             
