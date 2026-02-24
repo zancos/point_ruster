@@ -9,7 +9,7 @@ use std::error::Error;
 pub struct Renderer {
     device: Device,
     queue: Queue,
-    surface: Surface,
+    surface: Surface<'a>,
     config: SurfaceConfiguration,
 }
 
@@ -32,8 +32,8 @@ impl Renderer {
         
         let (device, queue) = pollster::block_on(adapter.request_device(
             &wgpu::DeviceDescriptor {
-                features: wgpu::Features::empty(),
-                limits: wgpu::Limits::default(),
+                required_features: wgpu::Features::empty(),
+                required_limits: wgpu::Limits::default(),
                 label: None,
             },
             None
@@ -41,6 +41,8 @@ impl Renderer {
         
         let size = window.inner_size();
         let config = SurfaceConfiguration {
+            desired_maximum_frame_latency: 1,
+            view_formats: vec![TextureFormat::Bgra8Unorm],
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
             format: TextureFormat::Bgra8Unorm,
             width: size.width,
@@ -78,6 +80,8 @@ impl Renderer {
         
         // Clear with background color
         let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+            occlusion_query_set: None,
+            timestamp_writes: None,
             label: Some("render pass"),
             color_attachments: &[Some(wgpu::RenderPassColorAttachment {
                 view: &view,

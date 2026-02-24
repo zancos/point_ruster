@@ -121,7 +121,7 @@ fn compute_eigenvector_min(matrix: [[f32; 3]; 3]) -> Option<Vec3> {
     
     let mut v = Vec3::new(1.0, 0.0, 0.0);
     
-    for _ in 0.100 {
+    for _ in 0..100 {
         // Apply matrix (simplified - in production use proper eigendecomposition)
         let mut result = Vec3::ZERO;
         

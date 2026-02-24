@@ -33,7 +33,7 @@ pub fn triangulate(points: &[Vec3], plane_center: Vec3, plane_normal: Vec3) -> O
     }
 
     // Perform Delaunay triangulation
-    let delaunay = match Triangulation::new(&points_2d) {
+    let delaunay = Triangulation::from_points(&points_2d);
         Ok(d) => d,
         Err(_) => return None,
     };

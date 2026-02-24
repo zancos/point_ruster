@@ -1,7 +1,7 @@
 //! Toolbar - tool selection UI
 
 use crate::app::AppState;
-use crate::app::ActiveTool;
+use crate::app::app_state::ActiveTool;
 use egui::Ui;
 
 /// Toolbar for tool selection

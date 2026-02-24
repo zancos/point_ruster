@@ -6,7 +6,7 @@ pub mod commands;
 pub mod history;
 pub mod run;
 
-pub use app_state::AppState;
+pub use app_state::{AppState, ActiveTool};
 pub use commands::Command;
 pub use history::History;
 pub use run::run;

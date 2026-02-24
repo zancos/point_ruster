@@ -18,7 +18,7 @@ pub fn run(mut app_state: AppState) {
     let window = WindowBuilder::new()
         .with_title("Point Ruster")
         .with_inner_size(winit::dpi::LogicalSize::new(1280.0, 720.0))
-        .build(&event_loop)
+        .build(event_loop.as_ref().unwrap())
         .expect("Failed to create window");
     
     // Initialize renderer
@@ -36,7 +36,7 @@ pub fn run(mut app_state: AppState) {
     info!("Application initialized successfully");
     
     // Run the event loop
-    event_loop.run(move |event, window_target| {
+    event_loop.expect("Failed to create event loop").run(move |event, window_target| {
         match event {
             winit::event::Event::WindowEvent { 
                 event: winit::event::WindowEvent::CloseRequested, 
