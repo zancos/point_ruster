@@ -5,7 +5,7 @@ use crate::viewer::Renderer;
 use crate::ui::UI;
 use winit::{
     event_loop::EventLoop,
-    window::WindowBuilder,
+    window::Window,
 };
 use log::{info, error};
 
@@ -15,10 +15,10 @@ pub fn run(mut app_state: AppState) {
     let event_loop = EventLoop::new();
     
     // Create the window
-    let window = WindowBuilder::new()
+    let window = Window::builder()
         .with_title("Point Ruster")
         .with_inner_size(winit::dpi::LogicalSize::new(1280.0, 720.0))
-        .build(event_loop.as_ref().unwrap())
+        .build(&event_loop)
         .expect("Failed to create window");
     
     // Initialize renderer
@@ -36,21 +36,22 @@ pub fn run(mut app_state: AppState) {
     info!("Application initialized successfully");
     
     // Run the event loop
-    event_loop.expect("Failed to create event loop").run(move |event, window_target| {
+    event_loop.run(move |event| {
         match event {
             winit::event::Event::WindowEvent { 
-                event: winit::event::WindowEvent::CloseRequested, 
-                .. 
+                event: winit::event::WindowEvent::CloseRequested(_), 
+                window_id: _,
             } => {
-                window_target.exit();
+                // Exit the application
+                std::process::exit(0);
             }
             winit::event::Event::WindowEvent { 
                 event: winit::event::WindowEvent::Resized(size), 
-                .. 
+                window_id: _,
             } => {
                 renderer.resize(size.width, size.height);
             }
-            winit::event::Event::MainEventsCleared => {
+            winit::event::Event::AboutToWait => {
                 // Update
                 // (Add update logic here)
                 
@@ -65,5 +66,5 @@ pub fn run(mut app_state: AppState) {
             }
             _ => {}
         }
-    });
+    }).expect("Failed to run event loop");
 }

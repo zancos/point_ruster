@@ -33,8 +33,7 @@ pub fn triangulate(points: &[Vec3], plane_center: Vec3, plane_normal: Vec3) -> O
     }
 
     // Perform Delaunay triangulation
-    let mut delaunay = Triangulation::new(points_2d.len());
-    delaunay.points = &points_2d;
+    let delaunay = Triangulation::from_iter(&points_2d);
 
     // Extract triangle indices
     let mut indices = Vec::new();

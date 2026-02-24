@@ -13,16 +13,16 @@ pub struct Renderer<'a> {
     config: SurfaceConfiguration,
 }
 
-impl Renderer<'_> {
+impl<'a> Renderer<'a> {
     /// Create a new renderer
-    pub fn new(window: &Window) -> Result<Self, Box<dyn Error>> {
+    pub fn new(window: &'a Window) -> Result<Self, Box<dyn Error>> {
         let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {
             backends: wgpu::Backends::PRIMARY,
             dx12_shader_compiler: Default::default(),
             ..Default::default()
         });
         
-        let surface = unsafe { instance.create_surface(window) }?;
+        let surface = instance.create_surface(window)?;
         
         let adapter = pollster::block_on(instance.request_adapter(&wgpu::RequestAdapterOptions {
             power_preference: wgpu::PowerPreference::HighPerformance,
