@@ -6,7 +6,7 @@ use crate::app::AppState;
 use std::error::Error;
 
 /// WGPU renderer
-pub struct Renderer {
+pub struct Renderer<'a> {
     device: Device,
     queue: Queue,
     surface: Surface<'a>,

@@ -32,7 +32,7 @@ impl Inspector {
             ui.separator();
             
             // Tool-specific UI
-            tool.ui(ui, app_state);
+            tool.ui(ui, &mut *app_state);
             
             ui.separator();
             
