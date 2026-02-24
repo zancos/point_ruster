@@ -3,6 +3,8 @@ name: Rust CI
 on:
   push:
     branches: [ main, master ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ main, master ]
 
@@ -67,3 +69,53 @@ jobs:
       - name: Build
         run: |
           cargo build --verbose
+
+  release:
+    needs: [build, build-windows, build-macos]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-gnu, aarch64-apple-darwin
+
+      - name: Build Windows release
+        run: |
+          cargo build --release --target x86_64-pc-windows-gnu
+        env:
+          CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER: x86_64-w64-mingw32-gcc
+
+      - name: Build macOS release (x86_64)
+        run: |
+          cargo build --release --target x86_64-apple-darwin
+
+      - name: Build macOS release (ARM64)
+        run: |
+          cargo build --release --target aarch64-apple-darwin
+
+      - name: Build Linux release
+        run: |
+          cargo build --release
+
+      - name: Prepare binaries
+        run: |
+          mkdir -p release
+          # Windows
+          cp target/x86_64-pc-windows-gnu/release/point_ruster.exe release/point_ruster-windows-x64.exe || true
+          # macOS
+          cp target/x86_64-apple-darwin/release/point_ruster release/point_ruster-macos-x64 || true
+          cp target/aarch64-apple-darwin/release/point_ruster release/point_ruster-macos-arm64 || true
+          # Linux
+          cp target/release/point_ruster release/point_ruster-linux-x64 || true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
