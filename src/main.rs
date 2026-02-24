@@ -1,6 +1,6 @@
-//! PLY Editor - Point cloud viewer/editor with tool-based geometry creation
-//! 
-//! A Rust application for viewing and editing PLY point clouds with:
+//! Point Ruster - Point cloud viewer/editor with tool-based geometry creation
+//!
+//! A Rust application for viewing and editing point clouds with:
 //! - Dual camera modes (Orbit CAD + FPS)
 //! - Selection tools (click + box select)
 //! - FitPlane tool for geometry creation
@@ -24,7 +24,7 @@ fn main() {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info"))
         .init();
     
-    info!("Starting PLY Editor");
+    info!("Starting Point Ruster");
     
     // Parse command line arguments
     let args: Vec<String> = std::env::args().collect();

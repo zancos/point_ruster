@@ -1,9 +1,9 @@
 [package]
-name = "ply_editor"
+name = "point_ruster"
 version = "0.1.0"
 edition = "2021"
-authors = ["ply_editor team"]
-description = "PLY point cloud viewer/editor with tool-based geometry creation"
+authors = ["Point Ruster Team"]
+description = "Point cloud viewer/editor with tool-based geometry creation"
 
 [dependencies]
 # Window and input

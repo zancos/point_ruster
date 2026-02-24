@@ -80,7 +80,7 @@ pub fn export_scene_objs(path: &Path, geometries: &[crate::data::SceneObject]) -
     let mut file = File::create(path)?;
     
     // Write header
-    writeln!(file, "# Exported from PLY Editor")?;
+    writeln!(file, "# Exported from Point Ruster")?;
     writeln!(file, "")?;
     
     let mut vertex_offset = 1u32;

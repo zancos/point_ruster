@@ -1,5 +1,5 @@
-PLY Editor (Rust)
-=================
+Point Ruster (Rust)
+===================
 
 Build:
 cargo build

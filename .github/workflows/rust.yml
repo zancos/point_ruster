@@ -24,26 +24,26 @@ jobs:
       - name: Cache cargo
         uses: Swatinem/rust-cache@v2
         with:
-          workspaces: "./ply_editor -> target"
+          workspaces: "./point_ruster -> target"
 
       - name: Check formatting
         run: |
-          cd ply_editor
+          cd point_ruster
           cargo fmt --all -- --check
 
       - name: Run clippy
         run: |
-          cd ply_editor
+          cd point_ruster
           cargo clippy -- -D warnings
 
       - name: Build
         run: |
-          cd ply_editor
+          cd point_ruster
           cargo build --verbose
 
       - name: Run tests
         run: |
-          cd ply_editor
+          cd point_ruster
           cargo test --verbose
 
   build-windows:
@@ -57,7 +57,7 @@ jobs:
 
       - name: Build
         run: |
-          cd ply_editor
+          cd point_ruster
           cargo build --verbose
 
   build-macos:
@@ -71,5 +71,5 @@ jobs:
 
       - name: Build
         run: |
-          cd ply_editor
+          cd point_ruster
           cargo build --verbose

@@ -16,7 +16,7 @@ pub fn run(mut app_state: AppState) {
     
     // Create the window
     let window = WindowBuilder::new()
-        .with_title("PLY Editor")
+        .with_title("Point Ruster")
         .with_inner_size(winit::dpi::LogicalSize::new(1280.0, 720.0))
         .build(&event_loop)
         .expect("Failed to create window");

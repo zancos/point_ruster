@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Project: ply_editor (Rust)
+Project: point_ruster (Rust)
 
 ## GOAL
 
