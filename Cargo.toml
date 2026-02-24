@@ -23,11 +23,8 @@ glam = "0.26"
 # PLY IO
 ply-rs = "0.1"
 
-# Spatial (KD-tree)
-kiddo = "0.7"
-
 # Triangulation
-delaunator = "0.8"
+delaunator = "1.0"
 
 # Async/blocking
 pollster = "0.4"
